@@ -1,4 +1,4 @@
-var textTag = {
+var inlineTags = {
 	abbr: true,
 	b: true,
 	big: true,
@@ -43,28 +43,20 @@ export default {
 	},
 	setImgStyle: function(item, imgMode) {
 		if (imgMode == "widthFix")
-			item.attrs.style += ";height:auto !important";
+			item.attrs.style = (item.attrs.style || '') + ";height:auto !important";
 		if (getRegExp("[^-]width[^pev;]+").test(";" + item.attrs.style))
-			item.attrs.style += ";width:100%";
-		item.attrs.style = item.attrs.style.replace(getRegExp('margin[^;]*', "gi"), "");
+			item.attrs.style = (item.attrs.style || '') + ";width:100%";
+		if (item.attrs.style)
+			item.attrs.style = item.attrs.style.replace(getRegExp('margin[^;]*', "gi"), "");
 		return [item];
 	},
 	setStyle: function(item) {
-		if (getRegExp("[^-]width[^pev;]+").test(";" + item.attrs.style))
-			item.attrs.style += ";width:100%";
-		if (getRegExp('margin').test(item.attrs.style)) {
-			item.attrs.style = item.attrs.style.replace(getRegExp('margin[^;]*', "gi"), "");
-			item.attrs.style += ';margin:0'
-		}
+		if (item.attrs.style)
+			item.attrs.style = item.attrs.style.replace(getRegExp("width[^;]*?%", "gi"), "width:100%").replace(getRegExp(
+				'margin[^;]+', "gi"), "");
 		return [item];
 	},
-	isContinue: function(item) {
-		if (textTag[item.name])
-			return false;
-		if (!item["continue"])
-			return true;
-		else if (item.name == 'a')
-			return true;
-		return false;
+	notContinue: function(item) {
+		return !(item.c || inlineTags[item.name] || item["continue"]);
 	}
 }

@@ -16,9 +16,8 @@
         <view class="link" style="margin-left:5%;" hover-class='link-hover' data-section="tagStyle" bindtap="gosection">更多的style匹配模式</view>
         <view class="link" style="margin-left:5%;" hover-class='link-hover' data-section="supportTag" bindtap="gosection">支持更多的标签</view>
         <view class="link" style="margin-left:5%;" hover-class='link-hover' data-section="highlight" bindtap="gosection">代码高亮</view>
-        <view class="link" style="margin-left:5%;" hover-class='link-hover' data-section="entity" bindtap="gosection">解析实体编码</view>
         <view class="link" style="margin-left:5%;" hover-class='link-hover' data-section="compress" bindtap="gosection">智能压缩</view>
-        <view class="link" style="margin-left:5%;" hover-class='link-hover' data-section="complement" bindtap="gosection">自动补全网址</view>
+        <view class="link" style="margin-left:5%;" hover-class='link-hover' data-section="entity" bindtap="gosection">解析实体编码</view>
         <view class="link" style="margin-left:5%;" hover-class='link-hover' data-section="website" bindtap="gosection">支持website模式</view>
         <view class="link" style="margin-left:5%;" hover-class='link-hover' data-section="file" bindtap="gosection">支持file模式</view>
         <view class="link" style="margin-left:5%;" hover-class='link-hover' data-section="markdown" bindtap="gosection">支持markdown模式</view>
@@ -45,14 +44,14 @@
         <!--更多的style匹配模式-->
         <view id="tagStyle" class="weui-article__h2">更多的style匹配模式</view>
         <view class="weui-article__section">
-          除前端插件包支持的匹配模式外，还支持以下模式：
+          除前端插件包支持的匹配模式外，还支持以下模式：(同CssHandler补丁包)
           <view style="font-size:12px;border-left:1px solid #dfe2e5;border-top:1px solid #dfe2e5;margin-top:10px;margin-bottom:10px;word-break:break-all">
             <view style="display:flex;font-weight:bold;">
               <view class="td" style="width:30%">模式</view>
               <view class="td" style="width:30%;">举例</view>
               <view class="td" style="width:40%;">匹配</view>
             </view>
-            <view wx:for="{{stylesMore}}" wx:key style="display:flex;background-color:{{index%2==0?'white':'#f6f8fa'}}">
+            <view wx:for="{{stylesMore}}" wx:key="index" style="display:flex;background-color:{{index%2==0?'white':'#f6f8fa'}}">
               <view class="td" style="width:30%">{{item.mode}}</view>
               <view class="td" style="width:30%;">{{item.example}}</view>
               <view class="td" style="width:40%;">
@@ -68,7 +67,7 @@
             <view class="td" style="width:30%">组件</view>
             <view class="td" style="width:70%;">属性</view>
           </view>
-          <view wx:for="{{tags}}" wx:key style="display:flex;background-color:{{index%2==0?'white':'#f6f8fa'}}">
+          <view wx:for="{{tags}}" wx:key="index" style="display:flex;background-color:{{index%2==0?'white':'#f6f8fa'}}">
             <view class="td" style="width:30%">{{item.name}}</view>
             <view class="td" style="width:70%;">
               <text>{{item.attrs}}</text>
@@ -83,27 +82,19 @@
           <Parser html="{{codedemo}}" />
           <view style="font-size:12px;color:gray;text-align:center;margin-top:-5px;">javascript语言，github-gist风格</view>
         </view>
+        <!--智能压缩-->
+        <view id="compress" class="weui-article__h2">智能压缩</view>
+        <view class="weui-article__section">
+          除前端包的压缩功能外，还支持自动去除重复的
+          <code>style</code>样式，自动去除空标签，自动去除
+          <code>display:none</code>的标签等方式进一步减小解析结果的大小，加快传输和渲染速度
+        </view>
         <!--解析实体编码-->
         <view id="entity" class="weui-article__h2">解析实体编码</view>
         <view class="weui-article__section">
           支持解析各类实体编码（包括中文），前端是通过
           <code>rich-text</code>组件编码实体，基础库低于
           <code>2.2.5</code>时部分实体无法显示，可以在后端提前完成编码
-        </view>
-        <!--智能压缩-->
-        <view id="compress" class="weui-article__h2">智能压缩</view>
-        <view class="weui-article__section">
-          除了前端包的压缩能力外，后端加强包还可以通过移除空标签，移除<code>display:none</code>的标签等方法进一步压缩解析结果的大小，提升传输速度和渲染速度
-        </view>
-        <!--自动补全网址-->
-        <view id="complement" class="weui-article__h2">自动补全网址</view>
-        <view class="weui-article__section">
-          当多媒体标签的
-          <code>src</code>属性是以
-          <code>/</code>开头时，会自动与主域名拼接成完整的地址，避免在小程序端无法显示（主域名可以通过
-          <code>options</code>参数中的
-          <code>domain</code>属性设置，当解析模式为
-          <code>website</code>时将自动获取）
         </view>
         <!--支持website模式-->
         <view id="website" class="weui-article__h2">支持
@@ -112,10 +103,7 @@
           <view class="weui-article__p">给入一个网址（必须以
             <code>http://</code>或
             <code>https://</code>开头），设置
-            <code>website</code>模式，插件将自动获取该页面的内容并进行解析</view>
-          <view class="weui-article__p">支持以下模式（自定义测试页面由于云函数空间大小限制仅支持静态网页模式）：
-            <Parser html="{{webmode}}" tag-style="{{tagStyle}}" />
-          </view>
+            <code>website</code>模式，插件将自动获取该页面的内容并进行解析（仅限简单的静态网页）</view>
           示例：
           <Parser html="{{website}}" />
         </view>
@@ -186,23 +174,27 @@
           <view style="margin-top:5px">domain：主域名，用于自动将多媒体标签的
             <code>src</code>属性填充完整，解析模式为
             <code>website</code>时自动获取</view>
-          <view style="margin-top:5px">engine：打开网址的引擎，支持的有
-            <code>default</code>（速度快，无需额外安装，但
-            <code>js</code>中动态加载的内容会被忽略）、
-            <code>puppeteer</code>（使用无头浏览器加载，使用前需要额外安装
-            <code>npm i puppeteer</code>）和<code>phantom</code>（使用无头浏览器加载，使用前需要额外安装
-            <code>npm i phantom</code>）</view>
-          <view style="margin-top:5px">parseEmoji：是否解析emoji，默认为<code>true</code>，打开后会自动将形如<code>[笑脸]</code>的字符解析为<code>emoji</code>字符😄</view>
-          <view style="margin-top:5px">compress：是否进行自动压缩（默认为<code>true</code>），打开后会通过移除<code>display:none</code>的节点，移除空标签，合并一些层级等，对于一些复杂的网页能减小大小</view>
+          <view style="margin-top:5px">useAnchor：是否使用页面内锚点，设置为
+            <code>true</code>时将把所有设置了
+            <code>id</code>的节点都通过组件递归的方式显示，默认
+            <code>false</code>
+          </view>
+          <view style="margin-top:5px">parseEmoji：是否解析emoji，默认为
+            <code>true</code>，打开后会自动将形如
+            <code>[笑脸]</code>的字符解析为
+            <code>emoji</code>字符😄</view>
+          <view style="margin-top:5px">compress：是否进行自动压缩（默认为
+            <code>true</code>），打开后会通过移除
+            <code>display:none</code>的节点，移除空标签，合并一些层级等，对于一些复杂的网页能减小大小；将该值设置成2时将进行强力压缩（移除所有标签的<code>id</code>和<code>class</code>属性，移除后不能使用锚点，不能匹配<code>wxss</code>中的样式）</view>
           <view style="margin-top:5px">maxDepth：前端显示时的最大递归深度，为0或负数时代表不限制（默认为0）。层数超过限制时，会直接使用
             <code>rich-text</code>显示而不再递归，可能导致图片不能预览，链接无法点击，视频和音频无法显示等问题；但过深的深度可能导致渲染时间较长；对于复杂的内容可以适当进行限制</view>
         </view>
         <!--返回值-->
         <view id="callback" class="weui-article__h2">返回值</view>
         <view class="weui-article__section">
-          一个形如
-          <code>{nodes: [Array], imgList: [Array], title: "String"}</code>的结构体，其中nodes为节点数组，可以直接应用于
-          <code>rich-text</code>组件，imgList为所有图片地址的数组，videoNum为视频的数量，title为页面标题，整个结构体可以作为
+          一个
+          <code>nodes</code>数组，可以直接应用于
+          <code>rich-text</code>组件，也可以作为
           <code>Parser</code>组件的参数
         </view>
       </view>
@@ -214,7 +206,7 @@
       <!--更新日志-->
       <view id="update" class="weui-article__h1">更新日志</view>
       <view class="weui-article__section">
-        <Parser html="{{update}}" />
+        <Parser html="{{update}}" tag-style="{{codeStyle}}" />
       </view>
     </view>
   </view>

@@ -140,7 +140,7 @@ module.exports = `<style>
   <p>
     <br />
   </p>
-  <section style="border: 0px none;">
+  <section id="anchor" style="border: 0px none;">
     <section style="padding: 10px;">
       <section style="box-shadow:0px 0px 5px #e5e5e5 ;height:65px;">
         <section style="display: flex;justify-content: flex-start;align-items: center;">
@@ -217,7 +217,7 @@ module.exports = `<style>
           </section>
           <section style="padding:0px 0.4em 0px 0.5em;font-size: 16px;letter-spacing: 1.5px;color: #71868f;">
             <p>
-              <strong>多媒体渲染</strong>
+              <strong>图片渲染</strong>
             </p>
           </section>
         </section>
@@ -251,6 +251,15 @@ module.exports = `<style>
     <br />
   </p>
   <br />
+	<section style="text-align:center"> 
+	  <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve"> 
+	    <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z"> 
+	      <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/> 
+	    </path> 
+	  </svg> 
+	  <div style="font-size: 12px; color: #A5A5A5; text-align: center">svg动画</div> 
+	</section>
+	<br />
   <section>
     <section style="margin: 1em auto; white-space: normal; border: 0px none; text-align: center; padding: 0px; padding: 5px;border:1px solid #ddd;overflow: hidden;">
       <section style="white-space: nowrap; width:100%; overflow-x: scroll;">
@@ -278,17 +287,7 @@ module.exports = `<style>
       </p>
     </section>
   </section>
-  <section>
-    <p>
-        <br/>
-    </p>
-  </section>
-  <div style="text-align:center;">
-    <audio src="https://img-cdn-qiniu.dcloud.net.cn/uniapp/audio/music.mp3" poster= "https://img-cdn-qiniu.dcloud.net.cn/uniapp/audio/music.jpg" name="致爱丽丝" author="暂无" controls></audio>
-    <p><br /></p>
-    <video src="https://img.cdn.aliyun.dcloud.net.cn/guide/uniapp/%E7%AC%AC1%E8%AE%B2%EF%BC%88uni-app%E4%BA%A7%E5%93%81%E4%BB%8B%E7%BB%8D%EF%BC%89-%20DCloud%E5%AE%98%E6%96%B9%E8%A7%86%E9%A2%91%E6%95%99%E7%A8%8B@20181126.mp4" controls unit-id="adunit-eaaa362d6fda3c6a"></video>
-  </div>
-  <br />
+	<br />
   <section style="border: 0px none;">
     <section style="padding: 10px;">
       <section style="box-shadow:0px 0px 5px #e5e5e5 ;height:65px;">
@@ -316,6 +315,9 @@ module.exports = `<style>
       <br />
       <a href="https://github.com/jin-yufeng/Parser">https://github.com/jin-yufeng/Parser</a>
       <p style="font-size:12px;color:gray">外部链接，点击可以复制/跳转</p>
+			<br />
+			<a href="#anchor">锚点</a>
+			<p style="font-size:12px;color:gray">内部锚点链接,点击将跳转到文字渲染栏</p>
     </div>
     <br />
   </section>
